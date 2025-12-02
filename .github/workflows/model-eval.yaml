@@ -12,7 +12,19 @@ jobs:
   evaluate:
     name: Run AI Foundry Model Evaluations
     runs-on: ubuntu-latest
-    env: 
+    env:
+      # azd required
+      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
+      AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+      # project specific
+      AZURE_OPENAI_SERVICE: ${{ vars.AZURE_OPENAI_SERVICE }}
+      AZURE_OPENAI_LOCATION: ${{ vars.AZURE_OPENAI_LOCATION }}
+      AZURE_OPENAI_RESOURCE_GROUP: ${{ vars.AZURE_OPENAI_RESOURCE_GROUP }}
+      AZURE_OPENAI_CHAT_DEPLOYMENT: ${{ var.AZURE_OPENAI_CHAT_DEPLOYMENT }}
+      # action specific
       # GENAI_EVALS_CONFIG_PATH: ${{ github.workspace }}/evaluate-config.json 
       # GENAI_EVALS_DATA_PATH: ${{ github.workspace }}/.github/.test_files/eval-input.jsonl
       GENAI_EVALS_CONFIG_PATH: ${{ github.workspace }}/evals/results/baseline/config.json 
@@ -54,8 +66,8 @@ jobs:
             },
             "ai_model_configuration": {
               "type": "azure_openai",
-              "azure_endpoint": "https://${{ secrets.AZURE_OPENAI_SERVICE }}".openai.azure.com",
-              "azure_deployment": "${{ secrets.AZURE_OPENAI_CHAT_DEPLOYMENT }}"           
+              "azure_endpoint": "https://${{ env.AZURE_OPENAI_SERVICE }}".openai.azure.com",
+              "azure_deployment": "${{ env.AZURE_OPENAI_CHAT_DEPLOYMENT }}"           
             }
           }
           EOF
