@@ -31,8 +31,11 @@ jobs:
       GENAI_EVALS_DATA_PATH: ${{ github.workspace }}/evals/results/baseline/eval_results.jsonl
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
+      - name: Install azd
+        uses: Azure/setup-azd@v2.2.1
+        
       - name: Azure Login
         uses: azure/login@v2
         with:
