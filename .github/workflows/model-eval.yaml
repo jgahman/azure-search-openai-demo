@@ -25,21 +25,21 @@ jobs:
       AZURE_OPENAI_RESOURCE_GROUP: ${{ vars.AZURE_OPENAI_RESOURCE_GROUP }}
       AZURE_OPENAI_CHAT_DEPLOYMENT: ${{ vars.AZURE_OPENAI_CHAT_DEPLOYMENT }}
       # action specific
-      # GENAI_EVALS_CONFIG_PATH: ${{ github.workspace }}/evaluate-config.json 
-      # GENAI_EVALS_DATA_PATH: ${{ github.workspace }}/.github/.test_files/eval-input.jsonl
-      GENAI_EVALS_CONFIG_PATH: ${{ github.workspace }}/evals/results/baseline/config.json 
-      GENAI_EVALS_DATA_PATH: ${{ github.workspace }}/evals/results/baseline/eval_results.jsonl
+      GENAI_EVALS_CONFIG_PATH: ${{ github.workspace }}/evaluate-config.json 
+      GENAI_EVALS_DATA_PATH: ${{ github.workspace }}/.github/.test_files/eval-input.jsonl
+      # GENAI_EVALS_CONFIG_PATH: ${{ github.workspace }}/evals/results/baseline/config.json 
+      # GENAI_EVALS_DATA_PATH: ${{ github.workspace }}/evals/results/baseline/eval_results.jsonl
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      # - name: Set up Python
+      #   uses: actions/setup-python@v5
+      #   with:
+      #     python-version: "3.11"
 
-      - name: Install azd
-        uses: Azure/setup-azd@v2.2.1
+      # - name: Install azd
+      #   uses: Azure/setup-azd@v2.2.1
 
       - name: Azure Login
         uses: azure/login@v2
@@ -49,19 +49,19 @@ jobs:
           tenant-id: ${{ env.AZURE_TENANT_ID }}
           subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Set az account
-        uses: azure/CLI@v2
-        with:
-          inlineScript: |
-            az account set --subscription ${{env.AZURE_SUBSCRIPTION_ID}}
+      # - name: Set az account
+      #   uses: azure/CLI@v2
+      #   with:
+      #     inlineScript: |
+      #       az account set --subscription ${{env.AZURE_SUBSCRIPTION_ID}}
 
-      - name: Login to with Azure with azd (Federated Credentials)
-        run: |
-          azd auth login `
-            --client-id "$Env:AZURE_CLIENT_ID" `
-            --federated-credential-provider "github" `
-            --tenant-id "$Env:AZURE_TENANT_ID"
-        shell: pwsh
+      # - name: Login to with Azure with azd (Federated Credentials)
+      #   run: |
+      #     azd auth login `
+      #       --client-id "$Env:AZURE_CLIENT_ID" `
+      #       --federated-credential-provider "github" `
+      #       --tenant-id "$Env:AZURE_TENANT_ID"
+      #   shell: pwsh
 
       - name: Write evaluate config
         run: |
