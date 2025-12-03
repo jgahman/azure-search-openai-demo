@@ -33,9 +33,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Install azd
         uses: Azure/setup-azd@v2.2.1
-        
+
       - name: Azure Login
         uses: azure/login@v2
         with:
