@@ -75,7 +75,8 @@ jobs:
             "ai_model_configuration": {
               "type": "azure_openai",
               "azure_endpoint": "https://${{ env.AZURE_OPENAI_SERVICE }}.openai.azure.com",
-              "azure_deployment": "${{ env.AZURE_OPENAI_CHATGPT_DEPLOYMENT }}"           
+              "azure_deployment": "${{ env.AZURE_OPENAI_CHATGPT_DEPLOYMENT }}",
+              "arbitrary_types_allowed": True
             }
           }
           EOF
